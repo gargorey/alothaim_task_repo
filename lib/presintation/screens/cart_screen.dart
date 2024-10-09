@@ -17,8 +17,29 @@ class CartScreen extends GetView<CartScreenController> {
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : CartCard(cartItem: controller.cartListModel!),
+              : ListView.builder(
+                  itemCount: controller.cartListModel!.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(22.0),
+                    child: itemListCard(
+                        items: controller.cartListModel![index].products!),
+                  ),
+                ),
         ));
+  }
+
+  Widget itemListCard({required List<CartListProduct> items}) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: items.length,
+      itemBuilder: (context, index) => Row(
+        children: [
+          Text("Product Number $index"),
+          Text("${items[index].quantity}"),
+        ],
+      ),
+    );
   }
 }
 

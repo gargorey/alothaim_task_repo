@@ -22,16 +22,20 @@ class CartImplementation extends BaseCartRepository {
   }
 
   @override
-  Future<Either<bool, CartListEntity>> getCartList() async {
+  Future<Either<bool, List<CartListEntity>>> getCartList() async {
     try {
-      final response =
-          await _customHttpClient.get(ApiConstance.cartEndPoint + "/5");
+      final response = await _customHttpClient.get(ApiConstance.cartEndPoint);
       print("from cart implemention$response}");
-      return Right(CartListModel.fromJson(response));
+
+      List<CartListEntity> cartList = mappingListOfObject(response);
+      return Right(cartList);
     } catch (e) {
       print("_____________");
       print(e.toString());
       return left(false);
     }
   }
+
+  List<CartListEntity> mappingListOfObject(str) =>
+      List<CartListModel>.from(str.map((x) => CartListModel.fromJson(x)));
 }

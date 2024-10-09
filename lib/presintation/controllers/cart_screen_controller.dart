@@ -26,13 +26,15 @@ class CartScreenController extends GetxController {
   }
 
   GetAllProductsUseCase _getAllProductsUseCase = GetAllProductsUseCase();
+
   AllProductsEntity? productDetailsModel;
-  CartListEntity? cartListModel;
+  List<CartListEntity>? cartListModel;
 
   getCartList() async {
     try {
       isLoading.value = true;
-      Either<bool, CartListEntity> response = await _cartUseCase.getCartList();
+      Either<bool, List<CartListEntity>> response =
+          await _cartUseCase.getCartList();
 
       print("from cart imp${response}");
 
