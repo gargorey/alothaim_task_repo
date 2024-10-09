@@ -7,9 +7,7 @@ class AllProductsModel extends AllProductsEntity {
     required super.price,
     required super.image,
     super.description,
-    // super.rating,
   });
-
   factory AllProductsModel.fromJson(Map<String, dynamic> json) {
     return AllProductsModel(
       id: json['id'],

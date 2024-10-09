@@ -35,4 +35,10 @@ class GetAllProductsImplementation extends BaseGetAllProductsRepository {
       return left(false);
     }
   }
+
+  @override
+  Future<Either<bool, List<AllProductsEntity>>> harin() {
+    // TODO: implement harin
+    throw UnimplementedError();
+  }
 }

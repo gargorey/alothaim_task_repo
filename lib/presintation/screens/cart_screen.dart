@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartScreen extends GetView<CartScreenController> {
+  CartScreenController controller = Get.put(CartScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

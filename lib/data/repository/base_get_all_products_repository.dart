@@ -4,4 +4,5 @@ import 'package:dartz/dartz.dart';
 abstract class BaseGetAllProductsRepository {
   Future<Either<bool, List<AllProductsEntity>>> getAllProducts();
   Future<Either<bool, AllProductsEntity>> getProductDetails({required int id});
+  Future<Either<bool, List<AllProductsEntity>>> harin();
 }

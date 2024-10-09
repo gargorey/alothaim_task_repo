@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             // initialRoute: AppPages,
             initialBinding: HomeScreenDataBinding(),
             getPages: AppPages().routes,
-            initialRoute: AppRoutes.homeScreen,
+            initialRoute: AppRoutes.mainScreen,
             // home: const HomeScreen(),
           );
         });

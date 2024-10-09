@@ -15,4 +15,9 @@ class GetAllProductsUseCase extends BaseGetAllProductsRepository {
   Future<Either<bool, AllProductsEntity>> getProductDetails({required int id}) {
     return _getAllProductsImplementation.getProductDetails(id: id);
   }
+
+  @override
+  Future<Either<bool, List<AllProductsEntity>>> harin() {
+    return _getAllProductsImplementation.harin();
+  }
 }
