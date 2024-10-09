@@ -44,7 +44,6 @@ class MainScreen extends GetView<MainScreenController> {
             ),
           ),
         ),
-        appBar: AppBar(),
         body: controller.children[controller.selectedScreen.value],
       ),
     );
