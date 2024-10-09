@@ -41,6 +41,8 @@ dependencies:
   equatable: ^2.0.5
   flutter_screenutil: ^5.9.3
   shared_preferences: ^2.3.2
+  #TODO CHECK DOCUMENTATION
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
