@@ -36,6 +36,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         Get.toNamed(AppRoutes.productDetailsScreen,
                             arguments:
                                 controller.allProductsListModel[index].id);
+                        // Get.toNamed(AppRoutes.cartScreen);
                       },
                       title: product.title,
                       price: product.price,

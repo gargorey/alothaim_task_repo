@@ -6,7 +6,7 @@ class AllProductsModel extends AllProductsEntity {
     required super.title,
     required super.price,
     required super.image,
-    // super.description,
+    super.description,
     // super.rating,
   });
 
@@ -16,7 +16,7 @@ class AllProductsModel extends AllProductsEntity {
       title: json['title'],
       price: double.parse(json['price'].toString()),
       image: json['image'],
-      // description: json['description'],
+      description: json['description'],
       // rating: json['rating'],
     );
   }
@@ -31,7 +31,7 @@ class AllProductsModel extends AllProductsEntity {
         id: id,
         title: title,
         price: price,
-        // description: description ?? this.description,
+        description: description ?? this.description,
         image: image,
         // rating: rating ?? this.rating,
       );
@@ -41,5 +41,6 @@ class AllProductsModel extends AllProductsEntity {
         title,
         price,
         image,
+        description,
       ];
 }

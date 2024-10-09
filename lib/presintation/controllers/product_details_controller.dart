@@ -1,5 +1,6 @@
 import 'package:alothaim_test/domain/entities/products_entities/all_products_entity.dart';
 import 'package:alothaim_test/domain/use_cases/get_all_products_use_case.dart';
+import 'package:alothaim_test/presintation/controllers/cart_screen_controller.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,8 @@ class ProductDetailsController extends GetxController {
       },
     );
   }
+
+  CartScreenController cartController = Get.put(CartScreenController());
 
   @override
   void onInit() {
