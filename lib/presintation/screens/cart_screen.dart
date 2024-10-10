@@ -9,35 +9,27 @@ class CartScreen extends GetView<CartScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Cart'),
-        ),
-        body: Obx(
-          () => controller.isLoading.value
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView.builder(
-                  itemCount: controller.cartListModel!.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(22.0),
-                    child: itemListCard(
-                        items: controller.cartListModel![index].products!),
+      appBar: AppBar(
+        title: Text('Cart'),
+      ),
+      body: Obx(
+        () => controller.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: controller.cartListModel!.products!.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.all(22.0),
+                  child: Row(
+                    children: [
+                      Text("Product Number $index"),
+                      Text(
+                          "${controller.cartListModel!.products![index].quantity}"),
+                    ],
                   ),
                 ),
-        ));
-  }
-
-  Widget itemListCard({required List<CartListProduct> items}) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: items.length,
-      itemBuilder: (context, index) => Row(
-        children: [
-          Text("Product Number $index"),
-          Text("${items[index].quantity}"),
-        ],
+              ),
       ),
     );
   }
