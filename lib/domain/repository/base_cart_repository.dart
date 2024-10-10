@@ -3,5 +3,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class BaseCartRepository {
   Future<Either<bool, bool>> addToCart({required Map<String, dynamic> data});
-  Future<Either<bool, List<CartListEntity>>> getCartList();
+  Future<Either<bool, CartListEntity>> getCartList();
 }

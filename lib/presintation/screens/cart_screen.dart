@@ -9,53 +9,37 @@ class CartScreen extends GetView<CartScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Cart'),
+      appBar: AppBar(
+        title: Text('Cart'),
+      ),
+      body: controller.isLoading.value
+          ? Center(
+        child: CircularProgressIndicator(),
+      )
+          : ListView.separated(
+        itemCount: 1,
+        itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Row(
+              children: [
+                Image.network(controller.productDetailsModel![index].image),
+                SizedBox(width: 10),
+                Text("Product price: ${controller.productDetailsModel![index].price}"),
+                SizedBox(width: 10),
+                // Text("Quantity: ${controller.cartListModel!.quantity}"),
+                SizedBox(width: 10),
+                // Text("Details: ${controller.productDetailsModel[index].description}"), // Adjust as needed based on actual product details
+              ],
+            )
         ),
-        body: Obx(
-          () => controller.isLoading.value
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView.builder(
-                  itemCount: controller.cartListModel!.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(22.0),
-                    child: itemListCard(
-                        items: controller.cartListModel![index].products!),
-                  ),
-                ),
-        ));
-  }
-
-  Widget itemListCard({required List<CartListEntity> items}) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: items.length,
-      itemBuilder: (context, index) => Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10)
-        ),
-        child: Row(
-
-        ),
-        // child: Padding(
-        //   padding: const EdgeInsets.all(15.0),
-        //   child: Row(
-        //     children: [
-        //       Text("Product Number $index"),
-        //       Text("${items[index].productId}"),
-        //     ],
-        //   ),
-        // ),
+        separatorBuilder: (context,index) => SizedBox(),
       ),
     );
   }
 }
 
 class CartCard extends StatelessWidget {
-  final List<CartListProduct> cartItem;
+  final CartListEntity cartItem;
 
   CartCard({required this.cartItem});
 
@@ -63,7 +47,7 @@ class CartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: cartItem.length,
+        itemCount: cartItem.products!.length,
         itemBuilder: (context, index) => Card(
           margin: EdgeInsets.all(8),
           child: Padding(
@@ -74,7 +58,7 @@ class CartCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "product.name",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
@@ -82,7 +66,7 @@ class CartCard extends StatelessWidget {
                       SizedBox(height: 4),
                       Text(
                         '${cartItem.products![index].quantity}',
-                        style: const TextStyle(fontSize: 16, color: Colors.green),
+                        style: TextStyle(fontSize: 16, color: Colors.green),
                       ),
                     ],
                   ),

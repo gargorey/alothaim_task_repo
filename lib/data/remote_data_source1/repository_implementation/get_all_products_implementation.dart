@@ -29,7 +29,6 @@ class GetAllProductsImplementation extends BaseGetAllProductsRepository {
     try {
       final response =
           await _customHttpClient.get(ApiConstance.productsEndPoint + "/$id");
-      print("respnse from implem${response}");
       return Right(AllProductsModel.fromJson(response));
     } catch (e) {
       return left(false);

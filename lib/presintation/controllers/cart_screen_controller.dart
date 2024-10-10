@@ -27,40 +27,68 @@ class CartScreenController extends GetxController {
 
   GetAllProductsUseCase _getAllProductsUseCase = GetAllProductsUseCase();
 
-  AllProductsEntity? productDetailsModel;
-  List<CartListEntity>? cartListModel;
+  List<AllProductsEntity>? productDetailsModel;
+  Rx<CartListEntity>? cartListModel;
 
   getCartList() async {
+    isLoading.value = true;
+
     try {
-      isLoading.value = true;
-      Either<bool, List<CartListEntity>> response =
-          await _cartUseCase.getCartList();
+      Either<bool, CartListEntity> response = await _cartUseCase.getCartList();
 
       print("from cart imp${response}");
 
       response.fold(
-        (l) => Get.snackbar('${l}', "something went wrong"),
-        (r) {
+        (l) {
           isLoading(false);
-          cartListModel = r;
+
+          Get.snackbar('${l}', "something went wrong");},
+        (r) {
+          print("from  cartListModel!.value = ${r}");
+
+         // cartListModel!.value = r;
+          // r.products!.forEach((element) {
+          //
+          // });
+
+          Future.forEach(r.products!, (element) =>  getProductDetails(id: element.productId!)).then((value)=> isLoading(false) );
+
         },
       );
     } catch (e) {
-      print(e.toString());
+      print("from catch "+e.toString());
     }
   }
 
   getProductDetails({required int id}) async {
-    isLoading.value = true;
-    Either<bool, AllProductsEntity> response =
-        await _getAllProductsUseCase.getProductDetails(id: id);
-    isLoading(false);
-    response.fold(
-      (l) => Get.snackbar('', "something went wrong"),
-      (r) {
-        productDetailsModel = r;
-      },
-    );
+    // isLoading.value = true;
+
+   try{
+     Either<bool, AllProductsEntity> response =
+     await _getAllProductsUseCase.getProductDetails(id: id);
+     // isLoading(false);
+
+    return response.fold(
+           (l) {
+
+
+         Get.snackbar('', "something went wrong");
+         return null;
+       },
+           (r) {
+             print(productDetailsModel!.length);
+             print("________________________");
+            productDetailsModel!.add(r);
+
+
+       },
+     );
+
+   }catch(e)
+    {
+      print("error from product details "+ e.toString());
+      return null;
+    }
   }
 
   @override

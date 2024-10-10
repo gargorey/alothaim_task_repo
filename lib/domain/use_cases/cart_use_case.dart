@@ -11,7 +11,7 @@ class CartUseCase extends BaseCartRepository {
   }
 
   @override
-  Future<Either<bool, List<CartListEntity>>> getCartList() {
+  Future<Either<bool, CartListEntity>> getCartList() {
     return _cartImplementation.getCartList();
   }
 }
