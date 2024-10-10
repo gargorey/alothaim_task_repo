@@ -1,3 +1,4 @@
+import 'package:alothaim_test/core/helpers/colors_helper.dart';
 import 'package:alothaim_test/presintation/controllers/product_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
         child: Container(
           height: 60.h,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: ColorsHelper.mainColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12),
               topRight: Radius.circular(12),
@@ -39,7 +40,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
             : CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    expandedHeight: 250.0,
+                    expandedHeight: 250.0.h,
                     floating: false,
                     pinned: true,
                     title: Obx(

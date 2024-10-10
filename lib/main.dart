@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alothaim_test/core/helpers/colors_helper.dart';
 import 'package:alothaim_test/core/routing/app_pages.dart';
 import 'package:alothaim_test/core/routing/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -27,26 +28,22 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        // designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        // Use builder only if you need to use library outside ScreenUtilInit context
         builder: (_, child) {
           return GetMaterialApp(
-            title: 'Flutter Demo',
+            title: 'Alothaim Task',
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              colorScheme:
+                  ColorScheme.fromSeed(seedColor: ColorsHelper.mainColor),
               useMaterial3: false,
             ),
-            // initialRoute: AppPages,
             initialBinding: HomeScreenDataBinding(),
             getPages: AppPages().routes,
             initialRoute: AppRoutes.mainScreen,
-            // home: const HomeScreen(),
           );
         });
   }
