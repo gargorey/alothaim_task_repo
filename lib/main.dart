@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:alothaim_test/core/routing/app_pages.dart';
 import 'package:alothaim_test/core/routing/app_routes.dart';
-import 'package:alothaim_test/core/shared/data_bindings/home_screen_data_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import 'presintation/data_bindings/home_screen_data_binding.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
