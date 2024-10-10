@@ -57,10 +57,6 @@ class CartScreenController extends GetxController {
       (l) => Get.snackbar('', "something went wrong"),
       (r) {
         productDetailsModel.add(r);
-
-        print("from get product detailsright ");
-
-        // update();
       },
     );
   }
