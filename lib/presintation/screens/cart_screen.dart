@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartScreen extends GetView<CartScreenController> {
-  CartScreenController controller = Get.put(CartScreenController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,17 +16,18 @@ class CartScreen extends GetView<CartScreenController> {
                 child: CircularProgressIndicator(),
               )
             : ListView.builder(
-                itemCount: controller.cartListModel!.products!.length,
+                itemCount: controller.productDetailsModel.length,
                 itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(22.0),
-                  child: Row(
-                    children: [
-                      Text("Product Number $index"),
-                      Text(
-                          "${controller.cartListModel!.products![index].quantity}"),
-                    ],
-                  ),
-                ),
+                    padding: const EdgeInsets.all(22.0),
+                    child: Card(
+                        child: ListTile(
+                      leading: CircleAvatar(
+                        child: Image.network(
+                            controller.productDetailsModel[index].image),
+                      ),
+                      title: Text(
+                          "${controller.productDetailsModel[index].title}"),
+                    ))),
               ),
       ),
     );

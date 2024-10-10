@@ -27,37 +27,40 @@ class CartScreenController extends GetxController {
 
   GetAllProductsUseCase _getAllProductsUseCase = GetAllProductsUseCase();
 
-  AllProductsEntity? productDetailsModel;
+  var productDetailsModel = <AllProductsEntity>[].obs;
   CartListEntity? cartListModel;
 
   getCartList() async {
-    try {
-      isLoading.value = true;
-      Either<bool, CartListEntity> response = await _cartUseCase.getCartList();
+    isLoading.value = true;
+    Either<bool, CartListEntity> response = await _cartUseCase.getCartList();
 
-      print("from cart imp${response}");
+    print("from cart imp${response}");
 
-      response.fold(
-        (l) => Get.snackbar('${l}', "something went wrong"),
-        (r) {
-          isLoading(false);
-          cartListModel = r;
-        },
-      );
-    } catch (e) {
-      print(e.toString());
-    }
+    response.fold(
+      (l) => Get.snackbar('${l}', "something went wrong"),
+      (r) {
+        cartListModel = r;
+        r.products!.forEach(
+          (element) {
+            getProductDetails(id: element.productId!);
+          },
+        );
+        isLoading(false);
+      },
+    );
   }
 
   getProductDetails({required int id}) async {
-    isLoading.value = true;
     Either<bool, AllProductsEntity> response =
         await _getAllProductsUseCase.getProductDetails(id: id);
-    isLoading(false);
     response.fold(
       (l) => Get.snackbar('', "something went wrong"),
       (r) {
-        productDetailsModel = r;
+        productDetailsModel.add(r);
+
+        print("from get product detailsright ");
+
+        // update();
       },
     );
   }
