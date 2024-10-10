@@ -1,7 +1,5 @@
 # alothaim_test
 
-Alothaim Task
-
 ## Used Packages :
 
 # http: ^1.2.2
