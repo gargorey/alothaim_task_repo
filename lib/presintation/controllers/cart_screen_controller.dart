@@ -102,4 +102,9 @@ class CartScreenController extends GetxController {
     }
     return total.toStringAsFixed(2);
   }
+
+  void checkout() {
+    Get.toNamed("page");
+
+  }
 }

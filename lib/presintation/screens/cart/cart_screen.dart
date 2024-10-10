@@ -159,11 +159,15 @@ class CartScreen extends GetView<CartScreenController> {
                 );
               },
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            SizedBox(height: 20.h,),
+            Column(
+
               children: [
-                CustomButtonWidget(onPressed: (){}, text: "check out"),
-                Text("Total: ${controller.calculateTotal()} SAR")
+                Text("Total: ${controller.calculateTotal()} SAR"),
+                SizedBox(height: 10.h,),
+                CustomButtonWidget(onPressed: (){
+                  controller.checkout();
+                }, text: "check out",width: 150.w,height: 30.h,),
               ],
             ),
           ],
