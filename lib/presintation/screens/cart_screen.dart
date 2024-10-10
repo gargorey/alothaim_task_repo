@@ -28,23 +28,34 @@ class CartScreen extends GetView<CartScreenController> {
         ));
   }
 
-  Widget itemListCard({required List<CartListProduct> items}) {
+  Widget itemListCard({required List<CartListEntity> items}) {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemCount: items.length,
-      itemBuilder: (context, index) => Row(
-        children: [
-          Text("Product Number $index"),
-          Text("${items[index].quantity}"),
-        ],
+      itemBuilder: (context, index) => Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10)
+        ),
+        child: Row(
+
+        ),
+        // child: Padding(
+        //   padding: const EdgeInsets.all(15.0),
+        //   child: Row(
+        //     children: [
+        //       Text("Product Number $index"),
+        //       Text("${items[index].productId}"),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
 }
 
 class CartCard extends StatelessWidget {
-  final CartListEntity cartItem;
+  final List<CartListProduct> cartItem;
 
   CartCard({required this.cartItem});
 
@@ -52,7 +63,7 @@ class CartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: cartItem.products!.length,
+        itemCount: cartItem.length,
         itemBuilder: (context, index) => Card(
           margin: EdgeInsets.all(8),
           child: Padding(
@@ -63,7 +74,7 @@ class CartCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "product.name",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
@@ -71,7 +82,7 @@ class CartCard extends StatelessWidget {
                       SizedBox(height: 4),
                       Text(
                         '${cartItem.products![index].quantity}',
-                        style: TextStyle(fontSize: 16, color: Colors.green),
+                        style: const TextStyle(fontSize: 16, color: Colors.green),
                       ),
                     ],
                   ),
