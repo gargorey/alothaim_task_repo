@@ -1,0 +1,244 @@
+import 'package:alothaim_test/domain/entities/cart_entities/cart_list_entity.dart';
+import 'package:alothaim_test/presintation/controllers/cart_screen_controller.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../core/helpers/cart_helper.dart';
+
+class CartScreen extends GetView<CartScreenController> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cart'),
+      ),
+      body: Obx(
+        () => controller.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: controller.productDetailsModel.length,
+                itemBuilder: (context, index){
+                  var data = controller.productDetailsModel[index];
+                  return  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Row(
+                                  children: [
+                                    Image.network(
+                                        data.image,width: 50,height: 50,),
+                                    SizedBox(width: 10.w,),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                            width: 140.w,
+                                            child: Text(data.title,overflow: TextOverflow.ellipsis,)),
+                                        SizedBox(height: 10.h,),
+                                        Text("${CartHelper.sumPrices(prices: data.price, qty: controller.cartProduct[data.id])} SAR",style: TextStyle(fontSize: 10.sp),),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                               Expanded(
+                                 flex: 1,
+                                 child: Column(
+                                  children: [
+                                    Directionality(
+                                      textDirection: TextDirection.ltr,
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton2<int>(
+                                          isExpanded: true,
+
+                                          items: List.generate(10, (index) => DropdownMenuItem<int>(
+                                            value: index + 1,
+                                            child: Padding(
+                                              padding:  EdgeInsetsDirectional.only(top: 7,start: controller.cartProduct[data.id] > 99 ? 6 : 12),
+                                              child: Text(
+                                                (index + 1).toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+
+                                              ),
+                                            ),
+                                          )),
+
+                                          value: controller.cartProduct[data.id],
+                                          onChanged: (value) {
+
+                                            controller.updateCart(
+                                              qty: value!,
+                                              productId: data.id,
+                                              date: controller.cartListModel!.date!,
+                                              userId: controller.cartListModel!.userId!
+                                            );
+
+                                            //controller.saveChanges(productID: productID.toString(), qty: value.toString());
+                                            // selectedValue = value;
+
+                                          },
+                                          buttonStyleData: ButtonStyleData(
+                                            height: 35,
+                                            width: 60,
+                                            padding: const EdgeInsetsDirectional.only(start:6,end: 10 ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              border: Border.all(
+                                                color: Colors.black12,
+                                              ),
+                                            ),
+                                          ),
+                                          iconStyleData: const IconStyleData(
+                                            icon: Icon(
+                                              Icons.arrow_drop_down,
+                                            ),
+                                            iconSize: 14,
+                                            iconEnabledColor: Colors.black38,
+
+                                          ),
+                                          dropdownStyleData: DropdownStyleData(
+                                            maxHeight: 400,
+                                            width: 100,
+                                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(14),
+                                              color: Colors.white,
+                                            ),
+                                            offset: const Offset(50, 0),
+
+                                            scrollbarTheme: ScrollbarThemeData(
+                                              radius: const Radius.circular(40),
+                                              thickness: MaterialStateProperty.all(5),
+                                              thumbVisibility: MaterialStateProperty.all(true),
+
+                                              trackBorderColor:  MaterialStateProperty.all(Colors.green),
+                                              trackColor:  MaterialStateProperty.all(Colors.green),
+                                              thumbColor: MaterialStateProperty.all(Colors.red), // Set scrollbar color to blue
+
+                                            ),
+                                          ),
+                                          menuItemStyleData: const MenuItemStyleData(
+                                            height: 40,
+                                            padding: EdgeInsets.only(left: 10, right: 10),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Icon(Icons.restore_from_trash,color: Colors.red,),
+                                  ],
+                                                               ),
+                               ),
+                            ],
+                          ),
+                        ),
+                      )
+                  );
+                },
+              ),
+
+      ),
+    );
+  }
+}
+
+class CartCard extends StatelessWidget {
+  final CartListEntity cartItem;
+
+  CartCard({required this.cartItem});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: cartItem.products!.length,
+        itemBuilder: (context, index) => Card(
+          margin: EdgeInsets.all(8),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "product.name",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        '${cartItem.products![index].quantity}',
+                        style: TextStyle(fontSize: 16, color: Colors.green),
+                      ),
+                    ],
+                  ),
+                ),
+                QuantityControl(cartListProduct: cartItem.products![index]),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class QuantityControl extends StatefulWidget {
+  final CartListProduct cartListProduct;
+
+  QuantityControl({required this.cartListProduct});
+
+  @override
+  _QuantityControlState createState() => _QuantityControlState();
+}
+
+class _QuantityControlState extends State<QuantityControl> {
+  void _increaseQuantity() {
+    setState(() {
+      widget.cartListProduct.quantity! + 1;
+    });
+  }
+
+  void _decreaseQuantity() {
+    setState(() {
+      if (widget.cartListProduct.quantity! > 1) {
+        widget.cartListProduct.quantity! - 1;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          icon: Icon(Icons.remove),
+          onPressed: _decreaseQuantity,
+        ),
+        Text(widget.cartListProduct.quantity.toString()),
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: _increaseQuantity,
+        ),
+      ],
+    );
+  }
+}

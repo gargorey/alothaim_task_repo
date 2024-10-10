@@ -20,75 +20,64 @@ class CartScreenController extends GetxController {
     });
     isLoading(false);
     response.fold(
-      (l) => Get.snackbar('', "something went wrong"),
-      (r) => Get.snackbar('', "Product Added Succefully"),
+          (l) => Get.snackbar('', "something went wrong"),
+          (r) => Get.snackbar('', "Product Added Succefully"),
     );
   }
 
   GetAllProductsUseCase _getAllProductsUseCase = GetAllProductsUseCase();
 
-  List<AllProductsEntity>? productDetailsModel;
-  Rx<CartListEntity>? cartListModel;
+  var productDetailsModel = <AllProductsEntity>[].obs;
+  CartListEntity? cartListModel;
+  Map<int,dynamic> cartProduct = {};
+
+
+  updateCart({required int productId,required int qty, required int userId, required String date}) async {
+    isLoading.value = true;
+    Either<bool, bool> response = await _cartUseCase.updateCart(productId: productId, qty:  qty,date: date,userId: userId);
+    isLoading(false);
+    response.fold(
+          (l) => Get.snackbar('', "something went wrong"),
+          (r) {
+            cartProduct[productId] = qty;
+            update();
+            Get.snackbar('', "Cart updated Succefully");
+
+          },
+    );
+  }
+
 
   getCartList() async {
     isLoading.value = true;
+    Either<bool, CartListEntity> response = await _cartUseCase.getCartList();
 
-    try {
-      Either<bool, CartListEntity> response = await _cartUseCase.getCartList();
+    print("from cart imp${response}");
 
-      print("from cart imp${response}");
-
-      response.fold(
-        (l) {
-          isLoading(false);
-
-          Get.snackbar('${l}', "something went wrong");},
-        (r) {
-          print("from  cartListModel!.value = ${r}");
-
-         // cartListModel!.value = r;
-          // r.products!.forEach((element) {
-          //
-          // });
-
-          Future.forEach(r.products!, (element) =>  getProductDetails(id: element.productId!)).then((value)=> isLoading(false) );
-
-        },
-      );
-    } catch (e) {
-      print("from catch "+e.toString());
-    }
+    response.fold(
+          (l) => Get.snackbar('${l}', "something went wrong"),
+          (r) {
+        cartListModel = r;
+        cartProduct.clear();
+        productDetailsModel.clear();
+        for (var element in r.products!) {
+            getProductDetails(id: element.productId!);
+            cartProduct.addAll({element.productId!:element.quantity});
+          }
+        isLoading(false);
+      },
+    );
   }
 
   getProductDetails({required int id}) async {
-    // isLoading.value = true;
-
-   try{
-     Either<bool, AllProductsEntity> response =
-     await _getAllProductsUseCase.getProductDetails(id: id);
-     // isLoading(false);
-
-    return response.fold(
-           (l) {
-
-
-         Get.snackbar('', "something went wrong");
-         return null;
-       },
-           (r) {
-             print(productDetailsModel!.length);
-             print("________________________");
-            productDetailsModel!.add(r);
-
-
-       },
-     );
-
-   }catch(e)
-    {
-      print("error from product details "+ e.toString());
-      return null;
-    }
+    Either<bool, AllProductsEntity> response =
+    await _getAllProductsUseCase.getProductDetails(id: id);
+    response.fold(
+          (l) => Get.snackbar('', "something went wrong"),
+          (r) {
+        productDetailsModel.add(r);
+      },
+    );
   }
 
   @override
