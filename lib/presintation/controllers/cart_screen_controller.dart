@@ -6,6 +6,7 @@ import 'package:alothaim_test/domain/use_cases/get_all_products_use_case.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
+import '../../core/helpers/custom_snackbar.dart';
 import '../../core/routing/app_routes.dart';
 
 class CartScreenController extends GetxController {
@@ -24,8 +25,8 @@ class CartScreenController extends GetxController {
     isLoading(false);
     response.fold(
 
-      (l) => Get.snackbar('', l.message),
-      (r) => Get.snackbar('', "Product Added Succefully"),
+      (l) => showCustomSnackBar('', l.message),
+      (r) => showCustomSnackBar('', "Product Added Succefully"),
     );
   }
 
@@ -41,11 +42,11 @@ class CartScreenController extends GetxController {
     Either<bool, bool> response = await _cartUseCase.updateCart(productId: productId, qty:  qty,date: date,userId: userId);
     isLoading(false);
     response.fold(
-          (l) => Get.snackbar('', "something went wrong"),
+          (l) => showCustomSnackBar('', "something went wrong"),
           (r) {
             cartProduct[productId] = qty;
             update();
-            Get.snackbar('', "Cart updated Succefully");
+            showCustomSnackBar('', "Cart updated Succefully");
 
           },
     );
@@ -60,7 +61,7 @@ class CartScreenController extends GetxController {
 
     response.fold(
 
-      (l) => Get.snackbar('${l}', l.message),
+      (l) => showCustomSnackBar('${l}', l.message),
       (r) {
         cartListModel = r;
         cartProduct.clear();
@@ -79,7 +80,7 @@ class CartScreenController extends GetxController {
     Either<Failure, AllProductsEntity> response =
         await _getAllProductsUseCase.getProductDetails(id: id);
     response.fold(
-      (l) => Get.snackbar('', l.message),
+      (l) => showCustomSnackBar('', l.message),
       (r) {
         productDetailsModel.add(r);
       },
