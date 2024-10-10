@@ -6,6 +6,8 @@ import 'package:alothaim_test/domain/use_cases/get_all_products_use_case.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
+import '../../core/routing/app_routes.dart';
+
 class CartScreenController extends GetxController {
   CartUseCase _cartUseCase = CartUseCase();
   RxBool isLoading = false.obs;
@@ -104,7 +106,10 @@ class CartScreenController extends GetxController {
   }
 
   void checkout() {
-    Get.toNamed("page");
+    Get.toNamed(AppRoutes.conformationScreen,arguments: {
+      "data":productDetailsModel,
+      "total":calculateTotal(),
+    });
 
   }
 }

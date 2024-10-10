@@ -22,7 +22,7 @@ class AppPages {
     GetPage(
       binding: HomeScreenDataBinding(),
       name: AppRoutes.homeScreen,
-      page: () => HomeScreen(),
+      page: () => const HomeScreen(),
     ),
     GetPage(
       binding: ProductDetailsDataBinding(),
@@ -37,7 +37,7 @@ class AppPages {
     GetPage(
       binding: OrderConformationBinding(),
       name: AppRoutes.conformationScreen,
-      page: () => OrderConfirmationScreen(),
+      page: () =>   OrderConfirmationScreen(),
     ),
   ];
 }
