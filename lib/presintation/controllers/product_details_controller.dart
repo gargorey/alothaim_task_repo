@@ -10,7 +10,7 @@ class ProductDetailsController extends GetxController {
   GetAllProductsUseCase _getAllProductsUseCase = GetAllProductsUseCase();
   AllProductsEntity? productDetailsModel;
   RxBool isLoading = false.obs;
-  getAllProducts() async {
+  getProductsDetails() async {
     isLoading.value = true;
     Either<Failure, AllProductsEntity> response =
         await _getAllProductsUseCase.getProductDetails(id: id);
@@ -27,7 +27,7 @@ class ProductDetailsController extends GetxController {
 
   @override
   void onInit() {
-    getAllProducts();
+    getProductsDetails();
     super.onInit();
   }
 }

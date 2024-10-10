@@ -47,6 +47,7 @@ class CartScreenController extends GetxController {
           },
         );
         isLoading(false);
+        return r;
       },
     );
   }
