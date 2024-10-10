@@ -140,8 +140,10 @@ class CartScreen extends GetView<CartScreenController> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 10,),
-                                    Icon(Icons.restore_from_trash,color: Colors.red,),
+                                    const SizedBox(height: 10,),
+                                    InkWell(
+                                        onTap: ()=> CartHelper.deleteHelper(productID: data.id),
+                                        child: Icon(Icons.restore_from_trash,color: Colors.red,)),
                                   ],
                                                                ),
                                ),

@@ -1,4 +1,6 @@
 import 'package:alothaim_test/core/api_constance/api_constance.dart';
+import 'package:alothaim_test/core/error/exception.dart';
+import 'package:alothaim_test/core/error/filure.dart';
 import 'package:alothaim_test/core/http_client/http_client.dart';
 import 'package:alothaim_test/data/data_models/cart_list_model.dart';
 import 'package:alothaim_test/domain/entities/cart_entities/cart_list_entity.dart';
@@ -10,29 +12,27 @@ class CartImplementation extends BaseCartRepository {
       CustomHttpClient(baseUrl: ApiConstance.baseUrl);
 
   @override
-  Future<Either<bool, bool>> addToCart(
+  Future<Either<Failure, bool>> addToCart(
       {required Map<String, dynamic> data}) async {
     try {
       final response =
           await _customHttpClient.post(body: data, ApiConstance.cartEndPoint);
       return Right(true);
-    } catch (e) {
-      return left(false);
+    } on ServerException catch (failure) {
+      return Left(ServeFailure(failure.errorMessageModel.statusMessage));
     }
   }
 
   @override
-  Future<Either<bool, CartListEntity>> getCartList() async {
+  Future<Either<Failure, CartListEntity>> getCartList() async {
     try {
       final response =
           await _customHttpClient.get(ApiConstance.cartEndPoint + "/1");
       print("from cart implemention$response}");
 
       return Right(CartListModel.fromJson(response));
-    } catch (e) {
-      print("_____________");
-      print(e.toString());
-      return left(false);
+    } on ServerException catch (failure) {
+      return Left(ServeFailure(failure.errorMessageModel.statusMessage));
     }
   }
 
