@@ -8,7 +8,7 @@ import 'package:alothaim_test/domain/repository/base_cart_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class CartImplementation extends BaseCartRepository {
-  CustomHttpClient _customHttpClient =
+  final CustomHttpClient _customHttpClient =
       CustomHttpClient(baseUrl: ApiConstance.baseUrl);
 
   @override
@@ -38,4 +38,19 @@ class CartImplementation extends BaseCartRepository {
 
   List<CartListEntity> mappingListOfObject(str) =>
       List<CartListModel>.from(str.map((x) => CartListModel.fromJson(x)));
+
+  @override
+  Future<Either<bool, bool>> updateCart({required int productId,required int qty, required int userId, required String date}) async {
+    try {
+      final response =
+          await _customHttpClient.post(body: {
+            "userId":userId,
+            "date":date,
+            "products":[{"productId":productId,"quantity":qty}]
+          }, ApiConstance.cartEndPoint);
+      return const Right(true);
+    } catch (e) {
+      return left(false);
+    }
+  }
 }

@@ -4,6 +4,8 @@ import 'package:alothaim_test/domain/use_cases/get_all_products_use_case.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
+import '../../core/helpers/custom_snackbar.dart';
+
 class HomeScreenController extends GetxController {
   GetAllProductsUseCase _getAllProductsUseCase = GetAllProductsUseCase();
   RxList<AllProductsEntity> allProductsListModel = <AllProductsEntity>[].obs;
@@ -14,7 +16,7 @@ class HomeScreenController extends GetxController {
         await _getAllProductsUseCase.getAllProducts();
     isLoading(false);
     response.fold(
-      (l) => Get.snackbar('', l.message),
+      (l) => showCustomSnackBar('', l.message),
       (r) {
         allProductsListModel.value = r;
       },

@@ -5,6 +5,8 @@ import 'package:alothaim_test/presintation/controllers/cart_screen_controller.da
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
+import '../../core/helpers/custom_snackbar.dart';
+
 class ProductDetailsController extends GetxController {
   final int id = Get.arguments;
   GetAllProductsUseCase _getAllProductsUseCase = GetAllProductsUseCase();
@@ -16,7 +18,7 @@ class ProductDetailsController extends GetxController {
         await _getAllProductsUseCase.getProductDetails(id: id);
     isLoading(false);
     response.fold(
-      (l) => Get.snackbar('', l.message),
+      (l) => showCustomSnackBar('', l.message),
       (r) {
         productDetailsModel = r;
       },

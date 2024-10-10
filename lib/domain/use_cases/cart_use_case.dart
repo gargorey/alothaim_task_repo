@@ -16,4 +16,9 @@ class CartUseCase extends BaseCartRepository {
   Future<Either<Failure, CartListEntity>> getCartList() {
     return _cartImplementation.getCartList();
   }
+
+  @override
+  Future<Either<bool, bool>> updateCart({required int productId,required int qty, required int userId, required String date}) {
+   return _cartImplementation.updateCart(qty:qty,productId: productId, userId: userId, date: date);
+  }
 }
