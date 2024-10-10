@@ -33,9 +33,10 @@ Alothaim Task
 
 # shared_preferences: ^2.3.2
 
-    s a Flutter package that provides a simple way to store key-value pairs persistently on the device. It's commonly used for saving user preferences, settings, or any small amount of data that needs to persist between app launches.
+    a Flutter package that provides a simple way to store key-value pairs persistently on the device. It's commonly used for saving user preferences, settings, or any small amount of data that needs to persist between app launches.
     
-Key Features:
+    Key Features:
         Persistent Storage: Data is stored on the device, allowing it to persist even after the app is closed or the device is restarted.
         Simple API: Offers straightforward methods to read and write data types such as strings, integers, booleans, and doubles.
         Asynchronous Operations: Operations are performed asynchronously, preventing blocking of the UI thread.
+
