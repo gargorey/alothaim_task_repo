@@ -94,4 +94,12 @@ class CartScreenController extends GetxController {
     cartProduct.removeWhere((key, value) => key == productID);
     productDetailsModel.removeWhere((element) => element.id == productID);
   }
+
+ String calculateTotal() {
+    double total = 0;
+    for (var element in productDetailsModel) {
+      total = total + (element.price * cartProduct[element.id]);
+    }
+    return total.toStringAsFixed(2);
+  }
 }

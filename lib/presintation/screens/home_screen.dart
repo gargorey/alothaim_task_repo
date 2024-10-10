@@ -1,4 +1,5 @@
 import 'package:alothaim_test/core/routing/app_routes.dart';
+import 'package:alothaim_test/presintation/controllers/cart_screen_controller.dart';
 import 'package:alothaim_test/presintation/controllers/home_screen_controller.dart';
 import 'package:alothaim_test/presintation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class HomeScreen extends GetView<HomeScreenController> {
               : GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.86,
+                    childAspectRatio: 0.83,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                   ),
@@ -31,12 +32,16 @@ class HomeScreen extends GetView<HomeScreenController> {
                   itemBuilder: (context, index) {
                     final product = controller.allProductsListModel[index];
                     return ProductCard(
+                      id: product.id,
                       image: product.image,
                       onPressed: () {
                         Get.toNamed(AppRoutes.productDetailsScreen,
                             arguments:
                                 controller.allProductsListModel[index].id);
                         // Get.toNamed(AppRoutes.cartScreen);
+                      },
+                      onPressedAddToCart: () {
+                        Get.find<CartScreenController>()..addToCart();
                       },
                       title: product.title,
                       price: product.price,
