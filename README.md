@@ -25,9 +25,9 @@ Alothaim Task
     a Flutter package that helps developers create responsive layouts by adapting the UI to different screen sizes and resolutions. It allows you to define dimensions, font sizes, and other UI properties in a way that scales appropriately across various devices.
    
      Key Features:
-        Responsive Sizing: Easily convert fixed pixel sizes to responsive units based on the device's screen size.
-        Orientation Support: Automatically adjust UI elements for portrait and landscape orientations.
-        Text Scaling: Adjust font sizes responsively to improve readability on different screens.
+       1- Responsive Sizing: Easily convert fixed pixel sizes to responsive units based on the device's screen size.
+       2- Orientation Support: Automatically adjust UI elements for portrait and landscape orientations.
+       3- Text Scaling: Adjust font sizes responsively to improve readability on different screens.
 
 
 
@@ -36,7 +36,7 @@ Alothaim Task
     a Flutter package that provides a simple way to store key-value pairs persistently on the device. It's commonly used for saving user preferences, settings, or any small amount of data that needs to persist between app launches.
     
     Key Features:
-        Persistent Storage: Data is stored on the device, allowing it to persist even after the app is closed or the device is restarted.
-        Simple API: Offers straightforward methods to read and write data types such as strings, integers, booleans, and doubles.
-        Asynchronous Operations: Operations are performed asynchronously, preventing blocking of the UI thread.
+       1- Persistent Storage: Data is stored on the device, allowing it to persist even after the app is closed or the device is restarted.
+       2- Simple API: Offers straightforward methods to read and write data types such as strings, integers, booleans, and doubles.
+       3- Asynchronous Operations: Operations are performed asynchronously, preventing blocking of the UI thread.
 
